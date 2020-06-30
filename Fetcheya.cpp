@@ -1,5 +1,5 @@
 /* MIT License
-# Forked from 
+#
 # Copyright (c) 2020 Ferhat Geçdoğan All Rights Reserved.
 # Distributed under the terms of the MIT License.
 #
@@ -17,6 +17,9 @@
 // Libraries 
 #include "Library/Colorized.hpp"
 #include "Library/FileSystemPlusPlus.h"
+
+#define FETCHEYA_VERSION "0.2"
+#define FETCHEYA_STATUS "beta-1"
 
 using namespace std; // Sorry...
 
@@ -238,7 +241,7 @@ int main() {
 			colorized::PrintWith(colorized::Colorize(BOLD, BLACK + i).c_str(), (underline + "").c_str());      
 		}*/
 	}                                      
-	cout << "\033[1;34m" << "\n\nBuild: " << "\033[01;33m" << "fetcheyav" << systemInfo.EraseAllSubString(ftime, ":") << endl;
+	cout << "\033[1;34m" << "\n\nBuild: " << "\033[01;33m" << FETCHEYA_VERSION << "-" << FETCHEYA_STATUS << "-" << "fetcheyav" << systemInfo.EraseAllSubString(ftime, ":") << endl;
 	cout << "\033[1;31m" << "OS Name:" << "\033[1;36m" << " " << fsplusplus::ReadOSName() << endl;
 	cout << "\033[1;36m" << "Architecture:" << "\033[1;33m" << " " << systemInfo.getArch() << endl;
 	cout << "\033[1;32m" << "Hostname:" << "\033[1;35m" << " " << systemInfo.getHostname() << endl;
