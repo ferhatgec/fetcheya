@@ -25,7 +25,7 @@ const std::string compilation_time = __TIME__;
 std::string ftime(compilation_time); // Convert
 
 class systemInfo {
-public:	
+public:
 	string EraseAllSubString(string & mainString, const string & erase) {
    	 size_t pos = string::npos;
    	 while((pos = mainString.find(erase)) != string::npos) {
@@ -35,11 +35,31 @@ public:
     	}
 
 	void getOS() {
-		fsplusplus::ReadFilePath("/etc/os-release");
+		fsplusplus::ReadFilePath("/etc/os-release"); 
 	}
 	
 	void getCPU() {
 		fsplusplus::ReadCPU();
+	}
+
+	void Test16bitColours() {
+		string blank = " ";
+		colorized::PrintWith(colorized::Colorize(BOLD, BLACK).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, RED).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, GREEN).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, YELLOW).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, BLUE).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, MAGENTA).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, CYAN).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_GRAY).c_str(), ("███\n " + blank).c_str());
+		colorized::PrintWith(colorized::Colorize(BOLD, DARK_GRAY).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_RED).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_GREEN).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_YELLOW).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_BLUE).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_MAGENTA).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_CYAN).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, WHITE).c_str(), "███");	
 	}
 
 	string getSystem() {
@@ -194,23 +214,46 @@ private:
 };
 
 int main() {
+	int a = 0;
+	bool control = false;
+	string blank = " ";
 	systemInfo systemInfo;
 	Colours Colours;
-	string underline((systemInfo.getUserHostLength()+1),'~');
-	cout << Colours.getTextColourBlue() << systemInfo.getUsername() << Colours.getTextColourNeutral() <<"@" << Colours.getTextColourGreen() << systemInfo.getHostname() << " " << endl;
-                                                                     
-	cout << Colours.getTextColourBlue() << underline << " " <<  endl;
-	cout << "\033[1;34m" << "Build: " << "\033[01;33m" << "fetcheyav" << systemInfo.EraseAllSubString(ftime, ":") << endl;
-	cout << "\033[1;31m" << "OS Name:" << "\033[1;36m" << " ";
-	systemInfo.getOS();
-	cout << "\033[1;36m" << "Architecture:" << "\033[1;33m" << " " << systemInfo.getArch() << endl;
-	cout << "\033[1;32m" << "Hostname:" << "\033[1;35m" << " " << systemInfo.getHostname() << endl;
-	cout << "\033[1;34m" << "Kernel Name:" << "\033[1;35m" << " " <<  systemInfo.getSystem() << endl;
-	cout << "\033[01;33m" << "Kernel Release:" << "\033[1;34m" << " "  << systemInfo.getKernel() << endl;
-	cout << "\033[1;35m" << "CPU:" << "\033[1;31m" << " ";
+	cout << blank;
+	string underline = "▂▂"; 
+	colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_BLUE).c_str(), (" " + systemInfo.getUsername()).c_str());
+	colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_CYAN).c_str(), "@");  
+	colorized::PrintWith(colorized::Colorize(BOLD, BLUE).c_str(), (systemInfo.getHostname() + " \n" + blank).c_str());
+	cout << " ";
+	for(int i = 0; i != systemInfo.getUserHostLength() + 1; i++) {
+		colorized::PrintWith(colorized::Colorize(BOLD, DARK_GRAY).c_str(), "▂");
+		/*if(BLACK + i >= LIGHT_GRAY) {  
+			if(DARK_GRAY + a > WHITE) {
+				a = 0;
+				colorized::PrintWith(colorized::Colorize(BOLD, BLACK + a).c_str(), (underline + "").c_str()); 	
+				control = true;
+				if(control == true) {
+					break;
+				}
+			} else {
+				colorized::PrintWith(colorized::Colorize(BOLD, DARK_GRAY + a).c_str(), (underline + "").c_str()); 
+				a++;
+			}
+		} else {
+			colorized::PrintWith(colorized::Colorize(BOLD, BLACK + i).c_str(), (underline + "").c_str());      
+		}*/
+	}                                         
+	cout << "\033[1;34m" << blank << " \n\n  Build: " << "\033[01;33m" << "fetcheyav" << systemInfo.EraseAllSubString(ftime, ":") << endl;
+	cout << "\033[1;31m" << blank << " OS Name:" << "\033[1;36m" << " " << fsplusplus::ReadOSName() << endl;
+	cout << "\033[1;36m" << blank << " Architecture:" << "\033[1;33m" << " " << systemInfo.getArch() << endl;
+	cout << "\033[1;32m" << blank << " Hostname:" << "\033[1;35m" << " " << systemInfo.getHostname() << endl;
+	cout << "\033[1;34m" << blank << " Kernel Name:" << "\033[1;35m" << " " <<  systemInfo.getSystem() << endl;
+	cout << "\033[01;33m" << blank << " Kernel Release:" << "\033[1;34m" << " "  << systemInfo.getKernel() << endl;
+	cout << "\033[1;35m" << blank << " CPU:" << "\033[1;31m" << " ";
 	systemInfo.getCPU();
-	cout << "\033[1;34m" << "Uptime:" << "\033[01;33m" << " "  <<  systemInfo.getUptime() << endl;
-	cout << "\033[1;35m" << "Terminal:" << "\033[1;32m" << " "  << systemInfo.getTerm() << endl;
-	cout << "\033[1;36m" << "Shell:" << "\033[1;31m" << " " << systemInfo.getShell() << endl;
+	cout << "\033[1;34m" << blank << " Uptime:" << "\033[01;33m" << " "  <<  systemInfo.getUptime() << endl;
+	cout << "\033[1;35m" << blank << " Terminal:" << "\033[1;32m" << " "  << systemInfo.getTerm() << endl;
+	cout << "\033[1;36m" << blank << " Shell:" << "\033[1;31m" << " " << systemInfo.getShell() << endl << endl << blank << " ";
+	systemInfo.Test16bitColours();
 	return F_OK;
 }
