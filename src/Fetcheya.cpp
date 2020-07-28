@@ -16,8 +16,8 @@
 #include <stdint.h>
 
 // Libraries 
-#include "../Library/Colorized.hpp"
-#include "../Library/FileSystemPlusPlus.h"
+#include <Colorized.hpp>
+#include <FileSystemPlusPlus.h>
 #include <Colors.h>
 #include <Logos.h>
 
@@ -85,6 +85,9 @@ public:
 		struct utsname sysinfo;
 		uname(&sysinfo);
 		hostname = sysinfo.nodename;
+		if(hostname.length() == 0) {
+			return "fegeya";
+		}
 		return hostname;
 	}
 	string getUsername() {
