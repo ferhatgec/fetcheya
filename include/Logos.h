@@ -218,6 +218,27 @@ char** OSLogo() {
                      TLGN "             .MMMMMMMMMMMMMMMMMMM    " TNRM,
                      "                                      " TNRM};
 		return logo;
+	} else if(strstr(fsplusplus::ReadOSName.c_str(), "Gentoo")) { // Gentoo/Linux
+		char *logo[] = {
+    			TLPR "         -/oyddmdhs+:.                " TNRM,
+    			TLPR "     -o" TWHT "dNMMMMMMMMNNmhy+" TLPR "-`            " TNRM,
+    			TLPR "   -y" TWHT "NMMMMMMMMMMMNNNmmdhy" TLPR "+-          " TNRM,
+    			TLPR " `o" TWHT "mMMMMMMMMMMMMNmdmmmmddhhy" TLPR "/`       " TNRM,
+    			TLPR " om" TWHT "MMMMMMMMMMMN" TLPR "hhyyyo" TWHT "hmdddhhhd" TLPR "o`     " TNRM,
+    			TLPR ".y" TWHT "dMMMMMMMMMMd" TLPR "hs++so/s" TWHT "mdddhhhhdm" TLPR "+`   " TNRM,
+    			TLPR " oy" TWHT "hdmNMMMMMMMN" TLPR "dyooy" TWHT "dmddddhhhhyhN" TLPR "d.  " TNRM,
+    			TLPR "  :o" TWHT "yhhdNNMMMMMMMNNNmmdddhhhhhyym" TLPR "Mh  " TNRM,
+   			TLPR "    .:" TWHT "+sydNMMMMMNNNmmmdddhhhhhhmM" TLPR "my  " TNRM,
+    			TLPR "       /m" TWHT "MMMMMMNNNmmmdddhhhhhmMNh" TLPR "s:  " TNRM,
+    			TLPR "   `o" TWHT "NMMMMMMMNNNmmmddddhhdmMNhs" TLPR "+`    " TNRM,
+    			TLPR "  `s" TWHT "NMMMMMMMMNNNmmmdddddmNMmhs" TLPR "/.     " TNRM,
+    			TLPR " /N" TWHT "MMMMMMMMNNNNmmmdddmNMNdso" TLPR ":`       " TNRM,
+    			TLPR "+M" TWHT "MMMMMMNNNNNmmmmdmNMNdso" TLPR "/-          " TNRM,
+    			TLPR "yM" TWHT "MNNNNNNNmmmmmNNMmhs+/" TLPR "-`            " TNRM,
+    			TLPR "/h" TWHT "MMNNNNNNNNMNdhs++/" TLPR "-`               " TNRM,
+    			TLPR "`/" TWHT "ohdmmddhys+++/:" TLPR ".`                  " TNRM,
+    			TLPR "  `-//////:--.                       " TNRM};
+		return logo;
 	} else if(strstr(fsplusplus::ReadOSName().c_str(), "elementary OS")) {
 		static char *logo[] = {
     			"                                  ",          TWHT "           $?77777$$$IO          " TNRM,
