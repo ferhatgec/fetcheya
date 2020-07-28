@@ -239,6 +239,27 @@ char** OSLogo() {
     			TLPR "`/" TWHT "ohdmmddhys+++/:" TLPR ".`                  " TNRM,
     			TLPR "  `-//////:--.                       " TNRM};
 		return logo;
+	} else if(strstr(fsplusplus::ReadOSName.c_str(), "SUSE") { // openSUSE && SUSE Linux
+		char *logo[] = {
+   			TWHT "             .;ldkO0000Okdl;.            " TNRM,
+    			TWHT "         .;d00xl:,'....';:ok00d;.        " TNRM,
+    			TWHT "       .d00l'                ,o00d.      " TNRM,
+    			TWHT "     .d0Kd." TLGN " :Okxol:;'.          " TWHT ":O0d.    " TNRM,
+    			TWHT "    'OK" TLGN "KKK0kOKKKKKKKKKKOxo:'      " TWHT "lKO'   " TNRM,
+    			TWHT "   ,0K" TLGN "KKKKKKKKKKKKKKK0d:" TWHT ",,," TLGN ":dx:" TWHT "    ;00,  " TNRM,
+    			TWHT "  .OK" TLGN "KKKKKKKKKKKKKKKk." TWHT ".oOkdl." TLGN "'0k." TWHT "   cKO. " TNRM,
+    			TWHT "  :KK" TLGN "KKKKKKKKKKKKKKK: " TWHT "kKx..od " TLGN "lKd" TWHT "   .OK: " TNRM,
+    			TWHT "  dKK" TLGN "KKKKKKKKKOx0KKKd " TWHT ";0KKKO, " TLGN "kKKc" TWHT "   dKd " TNRM,
+    			TWHT "  dKK" TLGN "KKKKKKKKKK;.;oOKx,.." TWHT "'" TLGN "..;kKKK0." TWHT "  dKd " TNRM,
+    			TWHT "  :KK" TLGN "KKKKKKKKKK0o;...;cdxxOK0Oxc,.  " TWHT ".0K: " TNRM,
+    			TWHT "   kKK" TLGN "KKKKKKKKKKKKK0xl;'......,cdo  " TWHT "lKk  " TNRM,
+    			TWHT "   '0K" TLGN "KKKKKKKKKKKKKKKKKKKK00KKOo;  " TWHT "c00'  " TNRM,
+    			TWHT "    .kK" TLGN "KKOxddxkOO00000Okxoc;'.   " TWHT ".dKk.   " TNRM,
+    			TWHT "      l0Ko.                    .c00l.    " TNRM,
+    			TWHT "       .l0Kk:.              .;xK0l.      " TNRM,
+    			TWHT "          ,lkK0xl:;,,,,;:ldO0kl,         " TNRM,
+    			TWHT "              .':ldxkkkkxdl:'.           " TNRM};
+		return logo;	
 	} else if(strstr(fsplusplus::ReadOSName().c_str(), "elementary OS")) {
 		static char *logo[] = {
     			"                                  ",          TWHT "           $?77777$$$IO          " TNRM,
