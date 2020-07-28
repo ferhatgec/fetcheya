@@ -19,8 +19,8 @@
 #include "Library/FileSystemPlusPlus.h"
 #include <Colors.h>
 
-#define FETCHEYA_VERSION "0.2"
-#define FETCHEYA_STATUS "beta-1"
+#define FETCHEYA_VERSION "0.3"
+#define FETCHEYA_STATUS "beta-1-preview"
 
 using namespace std; // Sorry...
 
