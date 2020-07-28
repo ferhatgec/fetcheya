@@ -235,7 +235,11 @@ void Parse(int p) {
 		cout << "\033[1;34m" << "Build: " << "\033[01;33m" << FETCHEYA_VERSION << "-" <<
 		FETCHEYA_STATUS << "-" << "fetcheyav" << systemInfo.EraseAllSubString(ftime, ":") << endl;
 	} else if(p == 5) {
-		cout << "\033[1;31m" << "OS Name:" << "\033[1;36m" << " " << fsplusplus::ReadOSName() << endl;
+		#ifdef __FreeBSD__
+			cout << "\033[1;31m" << "OS Name:" << "\033[1;36m" << " " << "FreeBSD" << endl;
+		#else
+			cout << "\033[1;31m" << "OS Name:" << "\033[1;36m" << " " << fsplusplus::ReadOSName() << endl;
+		#endif
 	} else if(p == 6) {
 		cout << "\033[1;36m" << "Architecture:" << "\033[1;33m" << " " << systemInfo.getArch() << endl;
 	} else if(p == 7) {
