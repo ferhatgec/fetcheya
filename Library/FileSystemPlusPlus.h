@@ -315,9 +315,11 @@ namespace fsplusplus {
 			return line + "\n";
         	}
         	readfile.close();
-    	} else {
-        	printf("Unable to open file\n");
-    	}
+    		} else {
+        		printf("Unable to open file\n");
+			return "null";    		
+		}
+		return "null";
     	}
     	
     	static void FindPath(std::string name) {

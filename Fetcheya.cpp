@@ -17,6 +17,7 @@
 // Libraries 
 #include "Library/Colorized.hpp"
 #include "Library/FileSystemPlusPlus.h"
+#include <Colors.h>
 
 #define FETCHEYA_VERSION "0.2"
 #define FETCHEYA_STATUS "beta-1"
@@ -101,6 +102,9 @@ public:
 		return deviceName;
 	}
 	string getUptime() {
+		#ifdef __FreeBSD__
+		return "null";		
+		#else
 		struct sysinfo info;
 		sysinfo(&info);
 		uptime = info.uptime;
@@ -128,6 +132,7 @@ public:
 		}
 		uptimeString = uptimeStream.str();
 		return uptimeString;
+		#endif	
 	}
 	string getShell() {
 		shell = getenv("SHELL");
@@ -214,46 +219,201 @@ private:
 	       ColourBar, FullColourBar, NeutralText, RedText, GreenText, YellowText, BlueText, MagentaText, CyanText;
 };
 
+void Parse(int p) {
+	systemInfo systemInfo;
+	if(p == 2) {
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_BLUE).c_str(), systemInfo.getUsername().c_str());
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_CYAN).c_str(), "@");  
+		colorized::PrintWith(colorized::Colorize(BOLD, BLUE).c_str(), (systemInfo.getHostname()).c_str());
+		printf("\n");		
+	} else if(p == 3) {	
+		for(int i = 0; i != systemInfo.getUserHostLength() + 1; i++) {
+			cout << "\033[1;36m" << "▂" << "\033[1;31m";
+		}
+		printf("\n"); 
+	} else if(p == 4) {
+		cout << "\033[1;34m" << "Build: " << "\033[01;33m" << FETCHEYA_VERSION << "-" <<
+		FETCHEYA_STATUS << "-" << "fetcheyav" << systemInfo.EraseAllSubString(ftime, ":") << endl;
+	} else if(p == 5) {
+		cout << "\033[1;31m" << "OS Name:" << "\033[1;36m" << " " << fsplusplus::ReadOSName() << endl;
+	} else if(p == 6) {
+		cout << "\033[1;36m" << "Architecture:" << "\033[1;33m" << " " << systemInfo.getArch() << endl;
+	} else if(p == 7) {
+		cout << "\033[1;32m" << "Hostname:" << "\033[1;35m" << " " << systemInfo.getHostname() << endl;
+	} else if(p == 8) {
+		cout << "\033[1;34m" << "Kernel Name:" << "\033[1;35m" << " " <<  systemInfo.getSystem() << endl;
+	} else if(p == 9) {
+		cout << "\033[01;33m" << "Kernel Release:" << "\033[1;34m" << " "  << systemInfo.getKernel() << endl;
+	} else if(p == 10) {
+		cout << "\033[1;35m" << "CPU:" << "\033[1;31m" << " ";
+		systemInfo.getCPU();
+	} else if(p == 11) {
+		cout << "\033[1;34m" << "Uptime:" << "\033[01;33m" << " "  <<  systemInfo.getUptime() << endl;
+	} else if(p == 12) {
+		cout << "\033[1;35m" << "Terminal:" << "\033[1;32m" << " "  << systemInfo.getTerm() << endl;
+	} else if(p == 13) {
+		cout << "\033[1;36m" << "Shell:" << "\033[1;31m" << " " << systemInfo.getShell() << endl;
+	} else { printf("\n"); }
+}
+
 int main() {
 	int a = 0;
 	bool control = false;
 	systemInfo systemInfo;
-	Colours Colours;
-	string underline = "▂▂"; 
-	colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_BLUE).c_str(), systemInfo.getUsername().c_str());
-	colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_CYAN).c_str(), "@");  
-	colorized::PrintWith(colorized::Colorize(BOLD, BLUE).c_str(), (systemInfo.getHostname() + " \n").c_str());
-	for(int i = 0; i != systemInfo.getUserHostLength() + 1; i++) {
-		colorized::PrintWith(colorized::Colorize(BOLD, DARK_GRAY).c_str(), "▂");
-		/*if(BLACK + i >= LIGHT_GRAY) {  
-			if(DARK_GRAY + a > WHITE) {
-				a = 0;
-				colorized::PrintWith(colorized::Colorize(BOLD, BLACK + a).c_str(), (underline + "").c_str()); 	
-				control = true;
-				if(control == true) {
-					break;
-				}
-			} else {
-				colorized::PrintWith(colorized::Colorize(BOLD, DARK_GRAY + a).c_str(), (underline + "").c_str()); 
-				a++;
-			}
-		} else {
-			colorized::PrintWith(colorized::Colorize(BOLD, BLACK + i).c_str(), (underline + "").c_str());      
-		}*/
-	}                                      
-	cout << "\033[1;34m" << "\n\nBuild: " << "\033[01;33m" << FETCHEYA_VERSION << "-" << FETCHEYA_STATUS << "-" << "fetcheyav" << systemInfo.EraseAllSubString(ftime, ":") << endl;
-	cout << "\033[1;31m" << "OS Name:" << "\033[1;36m" << " " << fsplusplus::ReadOSName() << endl;
-	cout << "\033[1;36m" << "Architecture:" << "\033[1;33m" << " " << systemInfo.getArch() << endl;
-	cout << "\033[1;32m" << "Hostname:" << "\033[1;35m" << " " << systemInfo.getHostname() << endl;
-	cout << "\033[1;34m" << "Kernel Name:" << "\033[1;35m" << " " <<  systemInfo.getSystem() << endl;
-	cout << "\033[01;33m" << "Kernel Release:" << "\033[1;34m" << " "  << systemInfo.getKernel() << endl;
-	cout << "\033[1;35m" << "CPU:" << "\033[1;31m" << " ";
-	systemInfo.getCPU();
-	cout << "\033[1;34m" << "Uptime:" << "\033[01;33m" << " "  <<  systemInfo.getUptime() << endl;
-	cout << "\033[1;35m" << "Terminal:" << "\033[1;32m" << " "  << systemInfo.getTerm() << endl;
-	cout << "\033[1;36m" << "Shell:" << "\033[1;31m" << " " << systemInfo.getShell() << endl << endl;
+	#ifdef __FreeBSD__
+	char *logo[] = {"                                     " TNRM,
+                        "   " TWHT "```                        " TLRD "`      " TNRM,
+                        "  " TWHT "` `.....---..." TLRD "....--.```   -/      " TNRM,
+                        "  " TWHT "+o   .--`         " TLRD "/y:`      +.     " TNRM,
+                        "  " TWHT " yo`:.            " TLRD ":o      `+-      " TNRM,
+                        "    " TWHT "y/               " TLRD "-/`   -o/       " TNRM,
+                        "   " TWHT ".-                  " TLRD "::/sy+:.      " TNRM,
+                        "   " TWHT "/                     " TLRD "`--  /      " TNRM,
+                        "  " TWHT "`:                          " TLRD ":`     " TNRM,
+                        "  " TWHT "`:                          " TLRD ":`     " TNRM,
+                        "   " TWHT "/                          " TLRD "/      " TNRM,
+                        "   " TWHT ".-                        " TLRD "-.      " TNRM,
+                        "    " TWHT "--                      " TLRD "-.       " TNRM,
+                        "     " TWHT "`:`                  " TLRD "`:`        " TNRM,
+                        "       " TLRD ".--             `--.          " TNRM,
+                        "         " TLRD " .---.....----.             " TNRM,
+                        "                                     " TNRM,
+                        "                                     " TNRM};
+	#elif __APPLE__
+	char *logo[] = {
+ 				"                               ",
+				    TGRN "                 -/+:.         " TNRM,
+				    TGRN "                :++++.         " TNRM,
+				    TGRN "               /+++/.          " TNRM,
+				    TGRN "       .:-::- .+/:-``.::-      " TNRM,
+				    TGRN "    .:/++++++/::::/++++++/:`   " TNRM,
+				    TBRN "  .:///////////////////////:`  " TNRM,
+				    TBRN "  ////////////////////////`    " TNRM,
+				    TLRD " -+++++++++++++++++++++++`     " TNRM,
+				    TLRD " /++++++++++++++++++++++/      " TNRM,
+				    TRED " /sssssssssssssssssssssss.     " TNRM,
+				    TRED " :ssssssssssssssssssssssss-    " TNRM,
+				    TPUR "  osssssssssssssssssssssssso/` " TNRM,
+				    TPUR "  `syyyyyyyyyyyyyyyyyyyyyyyy+` " TNRM,
+				    TBLU "   `ossssssssssssssssssssss/   " TNRM,
+				    TBLU "     :ooooooooooooooooooo+.    " TNRM,
+				    TBLU "      `:+oo+/:-..-:/+o+/-      " TNRM "",
+	};
+	#elif ____ANDROID__
+	char *logo[] = {
+    				TLGN "      ▀▄  ▂▂▂▂▂  ▄▀      " TNRM, TLGN "      ▗▟█████████▙▖      " TNRM,
+    				TLGN "     ▟██▀▀█████▀▀██▙     " TNRM, TLGN "     ███▄▄█████▄▄███▌    " TNRM,
+    				TLGN "    █████████████████    " TNRM, TLGN "▟█▙ ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▟█▙" TNRM,
+    				TLGN "███ █████████████████ ███" TNRM, TLGN "███ █████████████████ ███" TNRM,
+    				TLGN "███ █████████████████ ███" TNRM, TLGN "███ █████████████████ ███" TNRM,
+    				TLGN "███ █████████████████ ███" TNRM, TLGN "▜█▛ █████████████████ ▜█▛" TNRM,
+    				TLGN "    ▀███████████████▀    " TNRM, TLGN "      ████     ████      " TNRM,
+    				TLGN "      ████     ████      " TNRM, TLGN "      ▜██▛     ▜██▛      " TNRM};
+	#elif __OpenBSD__
+	char *logo[] = {
+    				"                                       " TLCY " _  " TNRM "",
+    				"                                       " TLCY "(_) " TNRM "",
+    				TYLW "              |    .                       " TNRM "",
+    				TYLW "          .   |L  /|   .           " TLCY "   _    " TNRM,
+    				TYLW "      _ . |\\ _| \\--+._/| .           " TLCY "(_)   " TNRM,
+    				TYLW "     / ||\\| Y J  )   / |/| ./              " TNRM,
+    				TYLW "    J  |)'( |        ` F`.'/   " TLCY "     _      " TNRM,
+	    			TYLW "  -<|  F         __     .-<        " TLCY "(_)     " TNRM,
+	    			TYLW "    | /       .-'" TLCY ". " TYLW "`.  /" TLCY "-. " TYLW "L___            " TNRM,
+	    			TYLW "    J \\      <    " TLCY "\\ " TYLW " | | " TDGY "O" TLCY "\\" TYLW "|.-' " TLCY
+	   			     "  _        " TNRM,
+	    			TYLW "  _J \\  .-    \\" TLCY "/ " TDGY "O " TLCY "| " TYLW "| \\   |" TYLW "F    " TLCY
+	    			     "(_)       " TNRM,
+	    			TYLW " '-F  -<_.     \\   .-'  `-' L__            " TNRM,
+	    			TYLW "__J  _   _.     >-'  " TBRN ")" TLRD "._.   " TYLW "|-'            " TNRM,
+	    			TYLW " `-|.'   /_.          " TLRD "\\_|  " TYLW " F              " TNRM,
+    				TYLW "  /.-   .                _.<               " TNRM,
+			    	TYLW " /'    /.'             .'  `\\              " TNRM,
+			    	TYLW "  /L  /'   |/      _.-'-\\                  " TNRM,
+			    	TYLW " /'J       ___.---'\\|                     " TNRM,
+			    	TYLW "   |\\  .--' V  | `. `                     " TNRM,
+	   		 	TYLW "   |/`. `-.     `._)                      " TNRM,
+			   	TYLW "      / .-.\\                            " TNRM,
+			   	TYLW "      \\ (  `\\                           " TNRM "",
+	   			TYLW "       `.\\                                  " TNRM ""};
+	#elif __NetBSD__
+	char *logo[] = {
+    				"                                  " TLRD "__,gnnnOCCCCCOObaau,_      " TNRM,
+    				"   " TWHT "_._                    " TLRD "__,gnnCCCCCCCCOPF\"''               " TNRM,
+    				"  " TWHT "(N\\\\\\" TLRD "XCbngg,._____.,gnnndCCCCCCCCCCCCF\"___,,,,___          " TNRM,
+    				"   " TWHT "\\\\N\\\\" TLRD "XCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCOOOOPYvv.     " TNRM,
+    				"    " TWHT "\\\\N\\\\" TLRD "XCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCPF\"''               " TNRM,
+    				"     " TWHT "\\\\N\\\\" TLRD "XCCCCCCCCCCCCCCCCCCCCCCCCCOF\"'                     " TNRM,
+    				"      " TWHT "\\\\N\\\\" TLRD "XCCCCCCCCCCCCCCCCCCCCOF\"'                         " TNRM,
+    				"       " TWHT "\\\\N\\\\" TLRD "XCCCCCCCCCCCCCCCPF\"'                             " TNRM,
+    				"        " TWHT "\\\\N\\\\" TLRD "\"PCOCCCOCCFP\"\"                                  " TNRM,
+    				"         " TWHT "\\\\N\\                                                " TNRM,
+    				"          " TWHT "\\\\N\\                                               " TNRM,
+    				"           " TWHT "\\\\N\\                                              " TNRM,
+    				"            " TWHT "\\\\NN\\                                            " TNRM,
+    				"             " TWHT "\\\\NN\\                                           " TNRM,
+    				"              " TWHT "\\\\NNA.                                         " TNRM,
+    				"               " TWHT "\\\\NNA,                                        " TNRM,
+    				"                " TWHT "\\\\NNN,                                       " TNRM,
+    				"                 " TWHT "\\\\NNN\\                                      " TNRM,
+    				"                  " TWHT "\\\\NNN\\ " TNRM,
+    				"                   " TWHT "\\\\NNNA" TNRM};
+	#elif linux
+	char *logo[] = {"                            " TNRM,
+                      "                            " TNRM,
+                      "                            " TNRM,
+                      TDGY "         #####              " TNRM,
+                      TDGY "        #######             " TNRM,
+                      TDGY "        ##" TWHT "O" TDGY "#" TWHT "O" TDGY "##             " TNRM,
+                      TDGY "        #" TYLW "#####" TDGY "#             " TNRM,
+                      TDGY "      ##" TWHT "##" TYLW "###" TWHT "##" TDGY "##           " TNRM,
+                      TDGY "     #" TWHT "##########" TDGY "##          " TNRM,
+                      TDGY "    #" TWHT "############" TDGY "##         " TNRM,
+                      TDGY "    #" TWHT "############" TDGY "###        " TNRM,
+                      TYLW "   ##" TDGY "#" TWHT "###########" TDGY "##" TYLW "#        " TNRM,
+                      TYLW " ######" TDGY "#" TWHT "#######" TDGY "#" TYLW "######      " TNRM,
+                      TYLW " #######" TDGY "#" TWHT "#####" TDGY "#" TYLW "#######      " TNRM,
+                      TYLW "   #####" TDGY "#######" TYLW "#####        " TNRM,
+                      "                            " TNRM,
+                      "                            " TNRM,
+                      "                            " TNRM};
+	#elif _WIN32
+	char *logo[] = {TLBL "                                  .., " TNRM,
+                               TLBL "                      ....,,:;+ccllll " TNRM,
+                               TLBL "        ...,,+:;  cllllllllllllllllll " TNRM,
+                               TLBL "  ,cclllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "                                      " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  llllllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "  `'ccllllllllll  lllllllllllllllllll " TNRM,
+                               TLBL "         `'\"\"*::  :ccllllllllllllllll " TNRM,
+                               TLBL "                        ````''\"*::cll " TNRM,
+                               TLBL "                                   `` " TNRM};
+	#else
+		control = true;
+        #endif
+	unsigned short int x = 0;                              
+      	 
+	if(control != true) {
+  		for (x = 0; x < 18; x++) {
+    			printf("%s", logo[x]);
+			Parse(x);
+		}
+	} else {
+		for (x = 0; x < 14; x++) {
+			Parse(x);
+		}
+	}
 	systemInfo.Test16bitColours();
-	cout << endl;
+	printf("\n");
 	return F_OK;
 }
 
