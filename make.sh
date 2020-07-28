@@ -5,4 +5,4 @@
 
 #!/bin/sh
 
-g++ -I./include/ ./Fetcheya.cpp -o fetcheya && ./fetcheya
+g++ -I./include/ ./src/Fetcheya.cpp -o fetcheya && ./fetcheya

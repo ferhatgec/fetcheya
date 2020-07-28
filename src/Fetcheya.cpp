@@ -13,14 +13,19 @@
 #include <sys/utsname.h>
 #include <sys/sysinfo.h>
 #include <chrono>
+#include <stdint.h>
 
 // Libraries 
-#include "Library/Colorized.hpp"
-#include "Library/FileSystemPlusPlus.h"
+#include "../Library/Colorized.hpp"
+#include "../Library/FileSystemPlusPlus.h"
 #include <Colors.h>
 
 #define FETCHEYA_VERSION "0.3"
 #define FETCHEYA_STATUS "beta-1-preview"
+
+#ifdef __FreeBSD__
+#define GETTIME_OPTION CLOCK_UPTIME_PRECISE
+#endif
 
 using namespace std; // Sorry...
 
@@ -101,13 +106,11 @@ public:
 		device.close();
 		return deviceName;
 	}
+
 	string getUptime() {
-		#ifdef __FreeBSD__
-		return "null";		
-		#else
-		struct sysinfo info;
-		sysinfo(&info);
-		uptime = info.uptime;
+		static struct sysinfo info;
+		//sysinfo(&info);
+		uptime = info.uptime;		
 		if(uptime/60 >= 60) {
 			uptimeHour = (uptime/60)/60;
 			uptimeHourWhole = uptimeHour;
@@ -132,7 +135,6 @@ public:
 		}
 		uptimeString = uptimeStream.str();
 		return uptimeString;
-		#endif	
 	}
 	string getShell() {
 		shell = getenv("SHELL");
@@ -363,24 +365,103 @@ int main() {
     				"                  " TWHT "\\\\NNN\\ " TNRM,
     				"                   " TWHT "\\\\NNNA" TNRM};
 	#elif linux
-	char *logo[] = {"                            " TNRM,
-                      "                            " TNRM,
-                      "                            " TNRM,
-                      TDGY "         #####              " TNRM,
-                      TDGY "        #######             " TNRM,
-                      TDGY "        ##" TWHT "O" TDGY "#" TWHT "O" TDGY "##             " TNRM,
-                      TDGY "        #" TYLW "#####" TDGY "#             " TNRM,
-                      TDGY "      ##" TWHT "##" TYLW "###" TWHT "##" TDGY "##           " TNRM,
-                      TDGY "     #" TWHT "##########" TDGY "##          " TNRM,
-                      TDGY "    #" TWHT "############" TDGY "##         " TNRM,
-                      TDGY "    #" TWHT "############" TDGY "###        " TNRM,
-                      TYLW "   ##" TDGY "#" TWHT "###########" TDGY "##" TYLW "#        " TNRM,
-                      TYLW " ######" TDGY "#" TWHT "#######" TDGY "#" TYLW "######      " TNRM,
-                      TYLW " #######" TDGY "#" TWHT "#####" TDGY "#" TYLW "#######      " TNRM,
-                      TYLW "   #####" TDGY "#######" TYLW "#####        " TNRM,
-                      "                            " TNRM,
-                      "                            " TNRM,
-                      "                            " TNRM};
+	if(strstr(fsplusplus::ReadOSName().c_str(), "Fedora")) {
+		char *logo[] = {TLBL "           :/------------://          " TNRM,
+                       TLBL "        :------------------://       " TNRM,
+                       TLBL "      :-----------" TWHT "/shhdhyo/" TLBL "-://      " TNRM,
+                       TLBL "    /-----------" TWHT "omMMMNNNMMMd/" TLBL "-:/     " TNRM,
+                       TLBL "   :-----------" TWHT "sMMMdo:/" TLBL "       -:/    " TNRM,
+                       TLBL "  :-----------" TWHT ":MMMd" TLBL "-------    --:/   " TNRM,
+                       TLBL "  /-----------" TWHT ":MMMy" TLBL "-------    ---/   " TNRM,
+                       TLBL " :------    --" TWHT "/+MMMh/" TLBL "--        ---:  " TNRM,
+                       TLBL " :---     " TWHT "oNMMMMMMMMMNho" TLBL "     -----:  " TNRM,
+                       TLBL " :--      " TWHT "+shhhMMMmhhy++" TLBL "   ------:   " TNRM,
+                       TLBL " :-      -----" TWHT ":MMMy" TLBL "--------------/   " TNRM,
+                       TLBL " :-     ------" TWHT "/MMMy" TLBL "-------------:    " TNRM,
+                       TLBL " :-      ----" TWHT "/hMMM+" TLBL "------------:     " TNRM,
+                       TLBL " :--" TWHT ":dMMNdhhdNMMNo" TLBL "-----------:       " TNRM,
+                       TLBL " :---" TWHT ":sdNMMMMNds:" TLBL "----------:         " TNRM,
+                       TLBL " :------" TWHT ":://:" TLBL "-----------://          " TNRM,
+                       TLBL " :--------------------://            " TNRM,
+                       "                                     " TNRM};	
+	} else if(strstr(fsplusplus::ReadOSName().c_str(), "Ubuntu")) {
+		char *logo[] = {TLRD "                          ./+o+-      " TNRM,
+                       TWHT "                  yyyyy- " TLRD "-yyyyyy+     " TNRM,
+                       TWHT "               " TWHT "://+//////" TLRD "-yyyyyyo     " TNRM,
+                       TYLW "           .++ " TWHT ".:/++++++/-" TLRD ".+sss/`     " TNRM,
+                       TYLW "         .:++o:  " TWHT "/++++++++/:--:/-     " TNRM,
+                       TYLW "        o:+o+:++." TWHT "`..```.-/oo+++++/    " TNRM,
+                       TYLW "       .:+o:+o/." TWHT "          `+sssoo+/   " TNRM,
+                       TWHT "  .++/+:" TYLW "+oo+o:`" TWHT "             /sssooo.  " TNRM,
+                       TWHT " /+++//+:" TYLW "`oo+o" TWHT "               /::--:.  " TNRM,
+                       TWHT " +/+o+++" TYLW "`o++o" TLRD "               ++////.   " TNRM,
+                       TWHT "  .++.o+" TYLW "++oo+:`" TLRD "             /dddhhh.  " TNRM,
+                       TYLW "       .+.o+oo:." TLRD "          `oddhhhh+   " TNRM,
+                       TYLW "        +.++o+o``-``" TLRD "``.:ohdhhhhh+     " TNRM,
+                       TYLW "         `:o+++ " TLRD "`ohhhhhhhhyo++os:     " TNRM,
+                       TYLW "           .o:" TLRD "`.syhhhhhhh/" TYLW ".oo++o`     " TNRM,
+                       TLRD "               /osyyyyyyo" TYLW "++ooo+++/    " TNRM,
+                       TLRD "                   ````` " TYLW "+oo+++o:     " TNRM,
+                       TYLW "                          `oo++.      " TNRM};
+	} else if(strstr(fsplusplus::ReadOSName.c_str(), "Arch")) {
+		char *logo[] = {"" TLCY "                   -`                 " TNRM,
+                     "" TLCY "                  .o+`                " TNRM,
+                     "" TLCY "                 `ooo/                " TNRM,
+                     "" TLCY "                `+oooo:               " TNRM,
+                     "" TLCY "               `+oooooo:              " TNRM,
+                     "" TLCY "               -+oooooo+:             " TNRM,
+                     "" TLCY "             `/:-:++oooo+:            " TNRM,
+                     "" TLCY "            `/++++/+++++++:           " TNRM,
+                     "" TLCY "           `/++++++++++++++:          " TNRM,
+                     "" TLCY "          `/+++o" TCYN "oooooooo" TLCY "oooo/`        " TNRM,
+                     "" TCYN "         " TLCY "./" TCYN "ooosssso++osssssso" TLCY "+`       " TNRM,
+                     "" TCYN "        .oossssso-````/ossssss+`      " TNRM,
+                     "" TCYN "       -osssssso.      :ssssssso.     " TNRM,
+                     "" TCYN "      :osssssss/        osssso+++.    " TNRM,
+                     "" TCYN "     /ossssssss/        +ssssooo/-    " TNRM,
+                     "" TCYN "   `/ossssso+/:-        -:/+osssso+-  " TNRM,
+                     "" TCYN "  `+sso+:-`                 `.-/+oso: " TNRM,
+                     "" TCYN " `++:.                           `-/+/" TNRM,
+                     "" TCYN " .`                                 `/" TNRM};
+	} else if(strstr(fsplusplus::ReadOSName.c_str(), "Linux Mint")) {
+		char *logo[] = {"                                       " TNRM,
+                     TLGN " MMMMMMMMMMMMMMMMMMMMMMMMMmds+.       " TNRM,
+                     TLGN " MMm----::-://////////////oymNMd+`    " TNRM,
+                     TLGN " MMd      " TWHT "/++                " TLGN "-sNMd:   " TNRM,
+                     TLGN " MMNso/`  " TWHT "dMM    `.::-. .-::.` " TLGN ".hMN:  " TNRM,
+                     TLGN " ddddMMh  " TWHT "dMM   :hNMNMNhNMNMNh: " TLGN "`NMm  " TNRM,
+                     TLGN "     NMm  " TWHT "dMM  .NMN/-+MMM+-/NMN` " TLGN "dMM  " TNRM,
+                     TLGN "     NMm  " TWHT "dMM  -MMm  `MMM   dMM. " TLGN "dMM  " TNRM,
+                     TLGN "     NMm  " TWHT "dMM  -MMm  `MMM   dMM. " TLGN "dMM  " TNRM,
+                     TLGN "     NMm  " TWHT "dMM  .mmd  `mmm   yMM. " TLGN "dMM  " TNRM,
+                     TLGN "     NMm  " TWHT "dMM`  ..`   ...   ydm. " TLGN "dMM  " TNRM,
+                     TLGN "     hMM- " TWHT "+MMd/-------...-:sdds  " TLGN "dMM  " TNRM,
+                     TLGN "     -NMm- " TWHT ":hNMNNNmdddddddddy/`  " TLGN "dMM  " TNRM,
+                     TLGN "      -dMNs-" TWHT "``-::::-------.``    " TLGN "dMM  " TNRM,
+                     TLGN "       `/dMNmy+/:-------------:/yMMM  " TNRM,
+                     TLGN "          ./ydNMMMMMMMMMMMMMMMMMMMMM  " TNRM,
+                     TLGN "             .MMMMMMMMMMMMMMMMMMM    " TNRM,
+                     "                                      " TNRM};
+	} else { 
+		char *logo[] = {"                            " TNRM,
+                	      "                            " TNRM,
+                	      "                            " TNRM,
+                	      TDGY "         #####              " TNRM,
+                	      TDGY "        #######             " TNRM,
+                	      TDGY "        ##" TWHT "O" TDGY "#" TWHT "O" TDGY "##             " TNRM,
+                	      TDGY "        #" TYLW "#####" TDGY "#             " TNRM,
+                	      TDGY "      ##" TWHT "##" TYLW "###" TWHT "##" TDGY "##           " TNRM,
+                	      TDGY "     #" TWHT "##########" TDGY "##          " TNRM,
+                	      TDGY "    #" TWHT "############" TDGY "##         " TNRM,
+                	      TDGY "    #" TWHT "############" TDGY "###        " TNRM,
+                	      TYLW "   ##" TDGY "#" TWHT "###########" TDGY "##" TYLW "#        " TNRM,
+                	      TYLW " ######" TDGY "#" TWHT "#######" TDGY "#" TYLW "######      " TNRM,
+                	      TYLW " #######" TDGY "#" TWHT "#####" TDGY "#" TYLW "#######      " TNRM,
+                	      TYLW "   #####" TDGY "#######" TYLW "#####        " TNRM,
+                	      "                            " TNRM,
+                	      "                            " TNRM,
+                	      "                            " TNRM};
+	}	
 	#elif _WIN32
 	char *logo[] = {TLBL "                                  .., " TNRM,
                                TLBL "                      ....,,:;+ccllll " TNRM,
