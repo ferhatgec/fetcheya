@@ -178,6 +178,26 @@ char** OSLogo() {
                      "" TCYN " `++:.                           `-/+/" TNRM,
                      "" TCYN " .`                                 `/" TNRM};
 		return logo;
+	} else if(strstr(fsplusplus::ReadOSName().c_str(), "Debian")) {
+		static char *logo[] = {"  " TWHT "       _,met$$$$$gg.           " TNRM,
+                       "  " TWHT "    ,g$$$$$$$$$$$$$$$P.       " TNRM,
+                       "  " TWHT "  ,g$$P\"\"       \"\"\"Y$$.\".     " TNRM,
+                       "  " TWHT " ,$$P'              `$$$.     " TNRM,
+                       "  " TWHT "',$$P       ,ggs.     `$$b:   " TNRM,
+                       "  " TWHT "`d$$'     ,$P\"\'   " TLRD "." TWHT "    $$$    " TNRM,
+                       "  " TWHT " $$P      d$\'     " TLRD "," TWHT "    $$P    " TNRM,
+                       "  " TWHT " $$:      $$.   " TLRD "-" TWHT "    ,d$$'    " TNRM,
+                       "  " TWHT " $$;      Y$b._   _,d$P'      " TNRM,
+                       "  " TWHT " Y$$.    " TLRD "`." TWHT "`\"Y$$$$P\"'         " TNRM,
+                       "  " TWHT " `$$b      " TLRD "\"-.__              " TNRM,
+                       "  " TWHT "  `Y$$                        " TNRM,
+                       "  " TWHT "   `Y$$.                      " TNRM,
+                       "  " TWHT "     `$$b.                    " TNRM,
+                       "  " TWHT "       `Y$$b.                 " TNRM,
+                       "  " TWHT "          `\"Y$b._             " TNRM,
+                       "  " TWHT "              `\"\"\"\"           " TNRM,
+                       "                                " TNRM};
+		return logo;	
 	} else if(strstr(fsplusplus::ReadOSName.c_str(), "Linux Mint")) {
 		static char *logo[] = {"                                       " TNRM,
                      TLGN " MMMMMMMMMMMMMMMMMMMMMMMMMmds+.       " TNRM,
@@ -197,6 +217,18 @@ char** OSLogo() {
                      TLGN "          ./ydNMMMMMMMMMMMMMMMMMMMMM  " TNRM,
                      TLGN "             .MMMMMMMMMMMMMMMMMMM    " TNRM,
                      "                                      " TNRM};
+		return logo;
+	} else if(strstr(fsplusplus::ReadOSName().c_str(), "elementary OS")) {
+		static char *logo[] = {
+    			"                                  ",          TWHT "           $?77777$$$IO          " TNRM,
+    			TWHT "        $III777ZZZZ$$$ZZ$8       " TNRM, TWHT "      ZI777           OZZZ$      " TNRM,
+    			TWHT "     Z777             O7ZZO8     " TNRM, TWHT "    Z777            O$ZZZ8       " TNRM,
+    			TWHT "    I$$           O$ZZZD         " TNRM, TWHT "   0$$O         O$$ZZ            " TNRM,
+    			TWHT "   0$$O       8$$$$              " TNRM, TWHT "   0$$O     8$$$$                " TNRM,
+    			TWHT "    $ZZ   O$$ZZ           D      " TNRM, TWHT "     ZZZ8ZZZZ             O88    " TNRM,
+    			TWHT "     DZZZZ8             D888     " TNRM, TWHT "       ZZZZDMMMMMMMMMMDO888      " TNRM,
+    			TWHT "         ZOOOOOOOOOOOO888        " TNRM, TWHT "           N8OOOOOOO8D           " TNRM,
+    			"                                 " TNRM,      "                                 " TNRM};
 		return logo;
 	} else { 
 		static char *logo[] = {"                            " TNRM,
