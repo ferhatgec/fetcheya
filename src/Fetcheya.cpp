@@ -108,8 +108,11 @@ public:
 	}
 
 	string getUptime() {
+		#ifdef __FreeBSD__
+		return "0m";
+		#else
 		static struct sysinfo info;
-		//sysinfo(&info);
+		sysinfo(&info);
 		uptime = info.uptime;		
 		if(uptime/60 >= 60) {
 			uptimeHour = (uptime/60)/60;
@@ -135,6 +138,7 @@ public:
 		}
 		uptimeString = uptimeStream.str();
 		return uptimeString;
+		#endif
 	}
 	string getShell() {
 		shell = getenv("SHELL");
