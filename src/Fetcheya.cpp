@@ -22,7 +22,7 @@
 #include <Logos.h>
 
 #define FETCHEYA_VERSION "0.3"
-#define FETCHEYA_STATUS "beta-1-preview"
+#define FETCHEYA_STATUS "beta-1"
 
 #ifdef __FreeBSD__
 #define GETTIME_OPTION CLOCK_UPTIME_PRECISE
