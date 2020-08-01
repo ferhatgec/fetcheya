@@ -28,7 +28,7 @@
 #endif
 
 std::string ftime(__TIME__); // Convert
-
+std::string Ws("				     ");
 class systemInfo {
 public:
 	std::string EraseAllSubString(std::string & mainString, const std::string & erase) {
@@ -56,6 +56,7 @@ public:
 		colorized::PrintWith(colorized::Colorize(BOLD, MAGENTA).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, CYAN).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_GRAY).c_str(), "███\n");
+		std::cout << Ws;
 		colorized::PrintWith(colorized::Colorize(BOLD, DARK_GRAY).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_RED).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_GREEN).c_str(), "███");
@@ -235,7 +236,7 @@ int main() {
 			Parse(x);
 		}
 	}
-	std::cout << "				     ";
+	std::cout << Ws;
 	systemInfo.Test16bitColours();
 	printf("\n");
 	return F_OK;
