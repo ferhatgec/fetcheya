@@ -27,8 +27,7 @@
 	#include <sys/sysinfo.h>
 #endif
 
-const std::string compilation_time = __TIME__;
-std::string ftime(compilation_time); // Convert
+std::string ftime(__TIME__); // Convert
 
 class systemInfo {
 public:
