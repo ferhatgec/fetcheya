@@ -11,7 +11,6 @@
 #include <string>
 #include <algorithm>
 #include <sys/utsname.h>
-#include <sys/sysinfo.h>
 #include <chrono>
 #include <stdint.h>
 
@@ -24,8 +23,8 @@
 #define FETCHEYA_VERSION "0.3"
 #define FETCHEYA_STATUS "beta-1"
 
-#ifdef __FreeBSD__
-#define GETTIME_OPTION CLOCK_UPTIME_PRECISE
+#ifndef __FreeBSD__
+	#include <sys/sysinfo.h>
 #endif
 
 using namespace std; // Sorry...
