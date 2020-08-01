@@ -393,9 +393,10 @@ namespace fsplusplus {
         		}
         	}
         	readfile.close();
-    	} else {
-        	printf("Unable to open file\n");
-    	}
+    		} else {
+        		printf("Unable to open file\n");
+    		}
+		return "null";
 	}
 	
 	
