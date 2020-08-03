@@ -1,0 +1,8 @@
+main() {
+	{<name>"Fetcheya"}#tag[projectname]
+	{<lang>"C++"}#tag[programminglanguage]
+	{<author>"Ferhat Gecdogan"}#tag[creator]
+	{<license>"MIT License"}#tag[mitlicense]
+	{<type>"System Information Tool"}#tag[project_type]
+	{<platform>"GNU/Linux, FreeBSD etc."}#tag[operatingsystem]
+}end
