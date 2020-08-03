@@ -1,6 +1,8 @@
 # Fetcheya
 ## Fegeya Fetcheya is Scrift's System Information Tool.
 
+![Fetcheya](resource/Fetcheya.png)
+
 ### Supported Platforms:
 - [x] Almost all GNU/Linux distros.
    * [x] Fedora
