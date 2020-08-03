@@ -238,7 +238,7 @@ int main() {
 	}
 	std::cout << Ws;
 	systemInfo.Test16bitColours();
-	printf("\n");
+	printf("\n\n");
 	return F_OK;
 }
 
