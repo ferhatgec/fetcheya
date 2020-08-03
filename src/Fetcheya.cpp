@@ -146,6 +146,13 @@ public:
 		shell.erase(0,5);
 		return shell;
 	}
+	std::string getDe() {
+		desktop = getenv("XDG_CURRENT_DESKTOP");
+		if(desktop.length() != 0) {		
+			return desktop;
+		}
+		return "null";
+	}
 	std::string getTerm() {
 		terminal = getenv("TERM");
 		return terminal;
@@ -173,7 +180,7 @@ public:
 private:
 	std::string distroLine, filename, hostname, username, deviceName,
 		uptimeString, shell, terminal, kernelVersion, architecture,
-		editor, visual, lineOne;
+		editor, visual, lineOne, desktop;
 	double uptime, uptimeMinutes, uptimeHour, uptimeDay;
 	int initialUptime, uptimeMinutesWhole, uptimeHourWhole, uptimeDayWhole, usernameLength,
 		hostnameLength, UserHostLength;
@@ -213,11 +220,15 @@ void Parse(int p) {
 		std::cout << "\033[1;35m" << "CPU:" << "\033[1;31m" << " ";
 		systemInfo.getCPU();
 	} else if(p == 11) {
-		std::cout << "\033[1;34m" << "Uptime:" << "\033[01;33m" << " "  <<  systemInfo.getUptime() << std::endl;
+		std::cout << "\033[1;34m" << "Uptime:" << "\033[01;33m" << " "  <<  systemInfo.getUptime() << std::endl;	
 	} else if(p == 12) {
 		std::cout << "\033[1;35m" << "Terminal:" << "\033[1;32m" << " "  << systemInfo.getTerm() << std::endl;
 	} else if(p == 13) {
 		std::cout << "\033[1;36m" << "Shell:" << "\033[1;31m" << " " << systemInfo.getShell() << std::endl;
+	} else if(p == 14) {
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_CYAN).c_str(), "Desktop Env: ");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_RED).c_str(), systemInfo.getDe().c_str());	
+		std::cout << "\n";
 	} else { printf("\n"); }
 }
 
@@ -227,12 +238,12 @@ int main() {
 	unsigned short int x = 0;                              
       	char** logo =  OSLogo();
 	if(control != true) {
-  		for (x = 0; x < 18; x++) {
+  		for (x = 0; x < 16; x++) {
     			printf("%s", logo[x]);
 			Parse(x);
 		}
 	} else {
-		for (x = 0; x < 14; x++) {
+		for (x = 0; x < 15; x++) {
 			Parse(x);
 		}
 	}
