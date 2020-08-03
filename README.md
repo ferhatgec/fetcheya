@@ -14,4 +14,4 @@
 - [ ] NetBSD (Untested)
 - [ ] GNU/Hurd (I don't know)
 
-##### Fegeya Fetcheya licensed with MIT License.
+#### Fegeya Fetcheya licensed with MIT License.
