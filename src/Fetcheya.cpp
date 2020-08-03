@@ -21,7 +21,7 @@
 #include <Logos.h>
 
 #define FETCHEYA_VERSION "0.3"
-#define FETCHEYA_STATUS "beta-1"
+#define FETCHEYA_STATUS "beta-2"
 
 #ifndef __FreeBSD__
 	#include <sys/sysinfo.h>
