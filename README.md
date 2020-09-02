@@ -14,4 +14,28 @@
 - [ ] NetBSD (Untested)
 - [ ] GNU/Hurd (I don't know)
 
-#### Fegeya Fetcheya licensed with MIT License.
+### ASCII Logo Support:
+ * [x] FreeBSD
+ * [x] Fedora
+ * [x] Ubuntu
+ * [x] Debian
+ * [x] Linux Mint
+ * [x] elementary OS
+ * [x] Slackware Linux (Untested)
+ * [x] SUSE Linux (Untested)
+ * [x] Arch (Untested)
+ * [x] Gentoo (Untested)
+ * [x] Windows (Untested)
+ * [x] macOS (Untested)
+ * [x] Android (Untested)
+ * [x] OpenBSD (Untested)
+ * [x] NetBSD (Untested)
+ * [ ] MX Linux
+ * [ ] Manjaro
+ * [ ] Pop!_OS
+ * [ ] Solus
+ * [ ] Zorin
+ * [ ] antiX 
+ * [ ] Tails etc.
+ 
+#### Fegeya Fetcheya licensed under the terms of MIT License.
