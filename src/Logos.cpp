@@ -7,7 +7,9 @@
 
 #include <Colors.h>
 #include <Logos.h>
+#include <cstring>
 #include <stdio.h>
+#include <FileSystemPlusPlus.h>
 
 char** OSLogo() {
 #ifdef __FreeBSD__
@@ -154,7 +156,7 @@ char** OSLogo() {
                        TLRD "                   ````` " TYLW "+oo+++o:     " TNRM,
                        TYLW "                          `oo++.      " TNRM};
 		return logo;
-	} else if(strstr(fsplusplus::ReadOSName.c_str(), "Arch")) {
+	} else if(strstr(fsplusplus::ReadOSName().c_str(), "Arch")) {
 		static char *logo[] = {"" TLCY "                   -`                 " TNRM,
                      "" TLCY "                  .o+`                " TNRM,
                      "" TLCY "                 `ooo/                " TNRM,
@@ -195,7 +197,7 @@ char** OSLogo() {
                        "  " TWHT "              `\"\"\"\"           " TNRM,
                        "                                " TNRM};
 		return logo;	
-	} else if(strstr(fsplusplus::ReadOSName.c_str(), "Linux Mint")) {
+	} else if(strstr(fsplusplus::ReadOSName().c_str(), "Linux Mint")) {
 		static char *logo[] = {"                                       " TNRM,
                      TLGN " MMMMMMMMMMMMMMMMMMMMMMMMMmds+.       " TNRM,
                      TLGN " MMm----::-://////////////oymNMd+`    " TNRM,
@@ -215,7 +217,7 @@ char** OSLogo() {
                      TLGN "             .MMMMMMMMMMMMMMMMMMM    " TNRM,
                      "                                      " TNRM};
 		return logo;
-	} else if(strstr(fsplusplus::ReadOSName.c_str(), "Gentoo")) { // Gentoo/Linux
+	} else if(strstr(fsplusplus::ReadOSName().c_str(), "Gentoo")) { // Gentoo/Linux
 		char *logo[] = {
     			TLPR "         -/oyddmdhs+:.                " TNRM,
     			TLPR "     -o" TWHT "dNMMMMMMMMNNmhy+" TLPR "-`            " TNRM,
@@ -236,7 +238,7 @@ char** OSLogo() {
     			TLPR "`/" TWHT "ohdmmddhys+++/:" TLPR ".`                  " TNRM,
     			TLPR "  `-//////:--.                       " TNRM};
 		return logo;
-	} else if(strstr(fsplusplus::ReadOSName.c_str(), "SUSE") { // openSUSE && SUSE Linux
+	} else if(strstr(fsplusplus::ReadOSName().c_str(), "SUSE")) { // openSUSE && SUSE Linux
 		static char *logo[] = {
    			TWHT "             .;ldkO0000Okdl;.            " TNRM,
     			TWHT "         .;d00xl:,'....';:ok00d;.        " TNRM,
@@ -258,7 +260,7 @@ char** OSLogo() {
     			TWHT "              .':ldxkkkkxdl:'.           " TNRM};
 		return logo;	
 	} else if(strstr(fsplusplus::ReadOSName().c_str(), "Slackware")) {
-		char *slackware_logo[] = {
+		char *logo[] = {
     			TLBL "                   :::::::",
     			TLBL "             :::::::::::::::::::               " TNRM,
     			TLBL "          :::::::::::::::::::::::::           " TNRM,

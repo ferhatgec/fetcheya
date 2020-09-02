@@ -351,7 +351,7 @@ namespace fsplusplus {
     	}
     	
 	// Get Between String    
-	void GetBtwString(std::string oStr, std::string sStr1, std::string sStr2, std::string &rStr) {  
+	static void GetBtwString(std::string oStr, std::string sStr1, std::string sStr2, std::string &rStr) {  
     		int start = oStr.find(sStr1);   
     	if (start >= 0) {       
       		std::string tstr = oStr.substr(start + sStr1.length());        
