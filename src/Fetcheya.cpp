@@ -29,6 +29,7 @@
 
 std::string ftime(__TIME__); // Convert
 std::string Ws("				     ");
+
 class systemInfo {
 public:
 	std::string EraseAllSubString(std::string & mainString, const std::string & erase) {
@@ -47,16 +48,7 @@ public:
 		fsplusplus::ReadCPU();
 	}
 
-	void Test16bitColours() {
-		colorized::PrintWith(colorized::Colorize(BOLD, BLACK).c_str(), "███");
-		colorized::PrintWith(colorized::Colorize(BOLD, RED).c_str(), "███");
-		colorized::PrintWith(colorized::Colorize(BOLD, GREEN).c_str(), "███");
-		colorized::PrintWith(colorized::Colorize(BOLD, YELLOW).c_str(), "███");
-		colorized::PrintWith(colorized::Colorize(BOLD, BLUE).c_str(), "███");
-		colorized::PrintWith(colorized::Colorize(BOLD, MAGENTA).c_str(), "███");
-		colorized::PrintWith(colorized::Colorize(BOLD, CYAN).c_str(), "███");
-		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_GRAY).c_str(), "███\n");
-		std::cout << Ws;
+	void Test8bitColors_Top() {
 		colorized::PrintWith(colorized::Colorize(BOLD, DARK_GRAY).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_RED).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_GREEN).c_str(), "███");
@@ -65,6 +57,17 @@ public:
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_MAGENTA).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_CYAN).c_str(), "███");
 		colorized::PrintWith(colorized::Colorize(BOLD, WHITE).c_str(), "███");	
+	}
+	
+	void Test8bitColors_Bottom() {
+		colorized::PrintWith(colorized::Colorize(BOLD, BLACK).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, RED).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, GREEN).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, YELLOW).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, BLUE).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, MAGENTA).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, CYAN).c_str(), "███");
+		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_GRAY).c_str(), "███\n");	
 	}
 
 	std::string getSystem() {
@@ -196,8 +199,9 @@ void Parse(int p) {
 		printf("\n");		
 	} else if(p == 3) {	
 		for(int i = 0; i != systemInfo.getUserHostLength() + 1; i++) {
-			std::cout << "\033[1;36m" << "▂" << "\033[1;31m";
+			std::cout << "\033[1;36m" << "-" << "\033[1;31m";
 		}
+		
 		printf("\n"); 
 	} else if(p == 4) {
 		std::cout << "\033[1;34m" << "Build: " << "\033[01;33m" << FETCHEYA_VERSION << "-" <<
@@ -228,7 +232,12 @@ void Parse(int p) {
 	} else if(p == 14) {
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_CYAN).c_str(), "Desktop Env: ");
 		colorized::PrintWith(colorized::Colorize(BOLD, LIGHT_RED).c_str(), systemInfo.getDe().c_str());	
+		std::cout << "\n\n";
+	} else if(p == 15) {
+		systemInfo.Test8bitColors_Top();
 		std::cout << "\n";
+	} else if(p == 16) {
+		systemInfo.Test8bitColors_Bottom();
 	} else { printf("\n"); }
 }
 
@@ -236,19 +245,21 @@ int main() {
 	int a = 0;
 	systemInfo systemInfo;
 	unsigned short int x = 0;                              
-      	char** logo =  OSLogo();
+      	char** logo = OSLogo();
+      	
 	if(control != true) {
-  		for (x = 0; x < 16; x++) {
-    			printf("%s", logo[x]);
+  		for (x = 0; x < 18; x++) {
+    			std::cout << logo[x];
 			Parse(x);
 		}
 	} else {
 		for (x = 0; x < 15; x++) {
 			Parse(x);
 		}
-	}
+	}	
+	
 	std::cout << Ws;
-	systemInfo.Test16bitColours();
+	//systemInfo.Test16bitColours();
 	printf("\n\n");
 	return F_OK;
 }
